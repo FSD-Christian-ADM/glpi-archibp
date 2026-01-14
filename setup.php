@@ -23,7 +23,7 @@
  along with Archibp. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
-define('PLUGIN_ARCHIBP_VERSION', '2.0.14');
+define('PLUGIN_ARCHIBP_VERSION', '2.0.15');
 
 // Minimal GLPI version, inclusive
 define('PLUGIN_ARCHIBP_MIN_GLPI', '11.0.0');
