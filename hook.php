@@ -146,20 +146,7 @@ function plugin_archibp_install() {
    $migration = new Migration(PLUGIN_ARCHIBP_VERSION);
 
    if (!$DB->TableExists("glpi_plugin_archibp_tasks")) {
-
 		$DB->runFile(Plugin::getPhpDir("archibp")."/sql/empty-2.0.2.sql");
-
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 2, 1, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 3, 2, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 11, 3, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 12, 4, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 4, 5, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 10, 6, 0);
-
-      plugin_archibp_add_displaypreference('PluginArchibpTask', 2, 2, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpTask', 6, 3, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpTask', 7, 4, 0);
-
 	}
    else
    {
@@ -169,17 +156,25 @@ function plugin_archibp_install() {
          plugin_archibp_migrate_100($migration);
       }
 
-
       if (!$DB->tableExists("glpi_plugin_archibp_taskstates")
           || !$DB->fieldExists("glpi_plugin_archibp_tasks", "plugin_archibp_taskstates_id")) {
          plugin_archibp_migrate_101($migration);
       }
 
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 2, 1, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 3, 2, 0);
-      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 4, 3, 0);
 
    }
+
+   plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 2, 1, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 3, 2, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 11, 3, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 12, 4, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 4, 5, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 10, 6, 0);
+
+   plugin_archibp_add_displaypreference('PluginArchibpTask', 2, 2, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpTask', 6, 3, 0);
+   plugin_archibp_add_displaypreference('PluginArchibpTask', 7, 4, 0);
+
    // regenerate configbpured fields
    if ($DB->TableExists("glpi_plugin_archibp_configbplinks") && $DB->TableExists("glpi_plugin_archibp_configbps")) {
       $query = "SELECT
