@@ -6,7 +6,7 @@
  -------------------------------------------------------------------------
 
  LICENSE
-      
+
  This file is part of Archibp.
 
  Archibp is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
  along with Archibp. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
-define('PLUGIN_ARCHIBP_VERSION', '2.0.15');
+define('PLUGIN_ARCHIBP_VERSION', '2.0.16');
 
 // Minimal GLPI version, inclusive
 define('PLUGIN_ARCHIBP_MIN_GLPI', '11.0.0');
@@ -37,10 +37,10 @@ function plugin_init_archibp() {
    $PLUGIN_HOOKS['csrf_compliant']['archibp'] = true;
    $PLUGIN_HOOKS['change_profile']['archibp'] = ['PluginArchibpProfile', 'initProfile'];
    $PLUGIN_HOOKS['assign_to_ticket']['archibp'] = true;
-   
+
    $PLUGIN_HOOKS['assign_to_ticket_dropdown']['archibp'] = true;
    $PLUGIN_HOOKS['assign_to_ticket_itemtype']['archibp'] = ['PluginArchibpTask_Item'];
-   
+
    $CFG_GLPI['impact_asset_types']['PluginArchibpTask'] = "/plugins/archibp/bp.png";
 
    Plugin::registerClass('PluginArchibpTask', array(
@@ -53,7 +53,7 @@ function plugin_init_archibp() {
    ));
    Plugin::registerClass('PluginArchibpProfile',
                          ['addtabon' => 'Profile']);
-                         
+
    if (class_exists('PluginArchiswSwcomponent')) {
       PluginArchiswSwcomponent::registerType('PluginArchibpTask');
    }
@@ -63,13 +63,13 @@ function plugin_init_archibp() {
    if (class_exists('PluginArchidataDataelement')) {
       PluginArchidataDataelement::registerType('PluginArchibpTask');
    }
-      
+
    if (Session::getLoginUserID()) {
 
       // link to fields plugin
       $plugin = new Plugin();
       if ($plugin->isActivated('fields')
-      && Session::haveRight("plugin_archibp", READ)) 
+      && Session::haveRight("plugin_archibp", READ))
       {
          $PLUGIN_HOOKS['plugin_fields']['archibp'] = 'PluginArchibpTask';
       }
@@ -102,11 +102,11 @@ function plugin_init_archibp() {
 
       // Import from Data_Injection plugin
       $PLUGIN_HOOKS['migratetypes']['archibp'] = 'plugin_datainjection_migratetypes_archibp';
-      $PLUGIN_HOOKS['pre_item_update']['archibp'] = ['PluginArchibpConfigbp' => 'hook_pre_item_update_archibp_configbp', 
+      $PLUGIN_HOOKS['pre_item_update']['archibp'] = ['PluginArchibpConfigbp' => 'hook_pre_item_update_archibp_configbp',
                                                    'PluginArchibpConfigbpLink' => 'hook_pre_item_update_archibp_configbplink'];
-      $PLUGIN_HOOKS['pre_item_add']['archibp'] = ['PluginArchibpConfigbp' => 'hook_pre_item_add_archibp_configbp', 
+      $PLUGIN_HOOKS['pre_item_add']['archibp'] = ['PluginArchibpConfigbp' => 'hook_pre_item_add_archibp_configbp',
                                                    'PluginArchibpConfigbpLink' => 'hook_pre_item_add_archibp_configbplink'];
-      $PLUGIN_HOOKS['pre_item_purge']['archibp'] = ['PluginArchibpConfigbp' => 'hook_pre_item_purge_archibp_configbp', 
+      $PLUGIN_HOOKS['pre_item_purge']['archibp'] = ['PluginArchibpConfigbp' => 'hook_pre_item_purge_archibp_configbp',
                                                    'PluginArchibpConfigbpLink' => 'hook_pre_item_purge_archibp_configbplink'];
 
    }
