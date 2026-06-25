@@ -505,11 +505,11 @@ function hook_pre_item_add_archibp_configbplink(CommonDBTM $item) {
          $name = ($newistreedropdown?" `completename`,":" `name`,");
          if (!$newistreedropdown) {
             // new simple dropdown view
-            $query = "CREATE VIEW `$tablename` (`id`,$entities `name`, `comment`) AS 
+            $query = "CREATE OR REPLACE VIEW `$tablename` (`id`,$entities `name`, `comment`) AS 
                   SELECT `id`,$entities `name`, `comment` FROM $newasviewon".(empty($newviewlimit)?"":" WHERE $newviewlimit");
          }
          else { // new treedropdon view
-            $query = "CREATE VIEW `$tablename` (`id`,$entities `name`, `comment`, `completename`, `level`, `is_recursive`) AS 
+            $query = "CREATE OR REPLACE VIEW `$tablename` (`id`,$entities `name`, `comment`, `completename`, `level`, `is_recursive`) AS 
                   SELECT `id`,$entities `name`, `comment`, `completename`, `level`, `is_recursive` FROM $newasviewon".(empty($newviewlimit)?"":" WHERE $newviewlimit");
          }
          $result = $DB->doQuery($query);
@@ -638,11 +638,11 @@ function hook_pre_item_update_archibp_configbplink(CommonDBTM $item) {
             $name = ($newistreedropdown?" `completename`,":" `name`,");
             if (!$newistreedropdown) {
                // new simple dropdown view
-               $query = "CREATE VIEW `$tablename` (`id`,$entities `name`, `comment`) AS 
+               $query = "CREATE OR REPLACE VIEW `$tablename` (`id`,$entities `name`, `comment`) AS 
                   SELECT `id`,$entities `name`, `comment` FROM $newasviewon".(empty($newviewlimit)?"":" WHERE $newviewlimit");
             }
             else { // new treedropdon view
-               $query = "CREATE VIEW `$tablename` (`id`,$entities `name`, `comment`, `completename`, `level`, `is_recursive`) AS 
+               $query = "CREATE OR REPLACE VIEW `$tablename` (`id`,$entities `name`, `comment`, `completename`, `level`, `is_recursive`) AS 
                   SELECT `id`,$entities `name`, `comment`, `completename`, `level`, `is_recursive` FROM $newasviewon".(empty($newviewlimit)?"":" WHERE $newviewlimit");
             }
             $result = $DB->doQuery($query);
