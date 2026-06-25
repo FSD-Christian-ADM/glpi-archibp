@@ -79,7 +79,7 @@ CREATE  TABLE `glpi_plugin_archibp_tasktypes` (
   `name` VARCHAR(45) NOT NULL ,
   `comment` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `glpi_plugin_archibp_tasktypes_name` (`name` ASC) 
+  UNIQUE INDEX `glpi_plugin_archibp_tasktypes_name` (`name` ASC)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `glpi_plugin_archibp_tasktypes` ( `id` , `name` , `comment` )  VALUES (1,'Manual','Manual');
@@ -95,7 +95,7 @@ CREATE  TABLE `glpi_plugin_archibp_criticities` (
   `name` VARCHAR(45) NOT NULL ,
   `comment` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `glpi_plugin_archibp_criticities_name` (`name` ASC) 
+  UNIQUE INDEX `glpi_plugin_archibp_criticities_name` (`name` ASC)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- -----------------------------------------------------
@@ -105,10 +105,11 @@ DROP VIEW IF EXISTS `glpi_plugin_archibp_swcomponents`;
 CREATE OR REPLACE VIEW `glpi_plugin_archibp_swcomponents` (`id`, `entities_id`, `name`, `comment`) AS
 SELECT `id`, `entities_id`, `completename`, `comment` from `glpi_plugin_archisw_swcomponents` where level = '1';
 
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpTask','2','2','0');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpTask','6','3','0');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpTask','7','4','0');
-	
+-- moved to inserts via PHP in hook.php for compatibility reasons with GLPI 11
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpTask','2','2','0');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpTask','6','3','0');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpTask','7','4','0');
+
 -- -----------------------------------------------------
 -- Table `plugin_archibp_tasktargets`
 -- -----------------------------------------------------
@@ -130,7 +131,7 @@ CREATE  TABLE `glpi_plugin_archibp_taskstates` (
   `name` VARCHAR(45) NOT NULL ,
   `comment` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `glpi_plugin_archibp_taskstates_name` (`name` ASC) 
+  UNIQUE INDEX `glpi_plugin_archibp_taskstates_name` (`name` ASC)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- -----------------------------------------------------
@@ -348,9 +349,10 @@ INSERT INTO `glpi_plugin_statecheck_ruleactions` (`id`,`plugin_statecheck_rules_
 INSERT INTO `glpi_plugin_statecheck_ruleactions` (`id`,`plugin_statecheck_rules_id`,`action_type`,`field`,`value`) VALUES (null,@rule_id,'isnotempty','comment',null);
 INSERT INTO `glpi_plugin_statecheck_ruleactions` (`id`,`plugin_statecheck_rules_id`,`action_type`,`field`,`value`) VALUES (null,@rule_id,'isnotempty','sortorder',null);
 
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',2,1,0,'central');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',3,2,0,'central');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',11,3,0,'central');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',12,4,0,'central');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',4,5,0,'central');
-INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',10,6,0,'central');
+-- moved to inserts via PHP in hook.php for compatibility reasons with GLPI 11
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',2,1,0,'central');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',3,2,0,'central');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',11,3,0,'central');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',12,4,0,'central');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',4,5,0,'central');
+-- INSERT INTO `glpi_displaypreferences` VALUES (NULL,'PluginArchibpConfigbp',10,6,0,'central');

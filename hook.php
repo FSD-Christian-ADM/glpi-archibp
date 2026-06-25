@@ -143,13 +143,26 @@ function plugin_archibp_install() {
 
    include_once (Plugin::getPhpDir("archibp")."/inc/profile.class.php");
 
+   $migration = new Migration(PLUGIN_ARCHIBP_VERSION);
+
    if (!$DB->TableExists("glpi_plugin_archibp_tasks")) {
 
 		$DB->runFile(Plugin::getPhpDir("archibp")."/sql/empty-2.0.2.sql");
+
+      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 2, 1, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 3, 2, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 11, 3, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 12, 4, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 4, 5, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpConfigbp', 10, 6, 0);
+
+      plugin_archibp_add_displaypreference('PluginArchibpTask', 2, 2, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpTask', 6, 3, 0);
+      plugin_archibp_add_displaypreference('PluginArchibpTask', 7, 4, 0);
+
 	}
    else
    {
-      $migration = new Migration(PLUGIN_ARCHIBP_VERSION);
 
       if (!$DB->tableExists("glpi_plugin_archibp_tasktargets")
           || !$DB->fieldExists("glpi_plugin_archibp_tasks", "plugin_archibp_tasktargets_id")) {
@@ -321,6 +334,8 @@ function plugin_archibp_AssignToTicket($types) {
 
 // Define dropdown relations
 function plugin_archibp_getTaskRelations() {
+
+   global $DB;
 
    $plugin = new Plugin();
    if ($plugin->isActivated("archibp")) {
@@ -812,9 +827,17 @@ function create_plugin_archibp_classfiles($dir, $newclassname, $istreedropdown =
       \$dropdown = new $newclassname();
       include (GLPI_ROOT . '/front/dropdown.common.php');
       ?>");
-      chmod($dir.'/inc/'.$newfilename.'.class.php', 0660);
-      chmod($dir.'/front/'.$newfilename.'.form.php', 0660);
-      chmod($dir.'/front/'.$newfilename.'.php', 0660);
+
+      foreach ([
+          $dir.'/inc/'.$newfilename.'.class.php',
+          $dir.'/front/'.$newfilename.'.form.php',
+          $dir.'/front/'.$newfilename.'.php',
+      ] as $file) {
+         if (file_exists($file) && is_writable($file)) {
+            @chmod($file, 0660);
+         }
+      }
+
       // refresh with new files
 //      header("Refresh:0");
 //   Session::addMessageAfterRedirect(__('Please, refresh the display', 'archibp'));
